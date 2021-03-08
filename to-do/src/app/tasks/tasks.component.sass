@@ -1,0 +1,56 @@
+@import '../../styles.sass'
+
+.tasks-list-wrapper
+    position: relative
+    top: -12vh
+
+.tasks-list
+    margin: 0
+    padding: 0
+    list-style-type: none
+    font-size: 1.25rem
+
+.task-completed-checkbox
+    position: absolute
+    height: 22px
+    width: 22px
+    left: 25px
+
+.task-name
+    padding: 4px 0 0 0 
+
+.task-delete-button
+    padding: 0 25px 0 0
+    transition: all 0.3s
+    opacity: 1
+    
+.tasks-actions-wrapper
+    width: $task-width
+    height: $task-height
+    background-color: $white
+    display: flex
+    align-items: center
+    justify-content: space-around
+    padding: 0 35px
+    border-bottom: 1px $white
+    border-radius: 0 0 5px 5px
+
+.single-task
+    width: $task-width
+    height: $task-height
+    display: flex
+    align-items: center
+    justify-content: space-between
+    background-color: $white
+    padding: 0 0 0 70px
+    border-bottom: 1px solid $light-grey-blue
+    &:first-of-type
+        border-radius: 5px 5px 0 0
+
+.tasks-action
+    font-size: 0.9rem
+    color: $action-grey
+    &:hover
+        color: $hover-grey
+    &:active
+        color: $active-blue
