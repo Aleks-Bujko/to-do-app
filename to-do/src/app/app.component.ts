@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TodosStoreService } from './todos-store.service';
 import { Todo } from './todo';
 
 @Component({
