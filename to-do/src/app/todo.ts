@@ -3,3 +3,5 @@ export interface Todo {
     title: string;
     isCompleted: boolean;
 }
+
+export interface Todos extends Array<Todo> {}
