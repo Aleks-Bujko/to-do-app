@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DarkModeService } from '../dark-mode.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private themeService: DarkModeService) { }
 
   ngOnInit(): void {
+  }
+
+  get dark() {
+    return this.themeService.theme === 'dark';
+  }
+
+  set dark(enabled: boolean) {
+    this.themeService.theme = enabled ? 'dark' : 'light';
   }
 
 }

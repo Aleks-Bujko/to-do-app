@@ -1,5 +1,8 @@
 @import '../../styles.sass'
 
+input[type=checkbox]
+    display: none
+
 .task-input
     position: relative
     top: -18vh
@@ -7,8 +10,8 @@
 .single-task-input
     width: $task-width
     height: $task-height
-    border: 1px $white
-    background-color: $white
+    border: 1px var(--theme-second-font)
+    background-color: var(--theme-elements)
     border-radius: 5px
     font-size: 1.25rem
     padding: 0 0 0 70px

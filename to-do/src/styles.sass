@@ -1,29 +1,56 @@
-$white: #ffffff
-$light-grey: #fafafa
-$light-grey-blue: #E4E5F1
-$action-grey: #7c7c7c
-$hover-grey: #5e575e
-$active-blue: #74c4fc
-$font-color: #575665
+$theme-light-elements: #ffffff
+$theme-light-bg-color: #fafafa
+$theme-light-light-second-bg: #E4E5F1
+$theme-light-second-font: #7c7c7c
+$theme-light-hover: #5e575e
+$theme-light-active: #74c4fc
+$theme-light-font: #575665
+
+$theme-dark-elements: #161722
+$theme-dark-bg-color: #25273C
+$theme-dark-light-second-bg: #CACDE8
+$theme-dark-second-font: #7c7c7c
+$theme-dark-hover: #777A92
+$theme-dark-active: #4D5066
+$theme-dark-font: #4D5066
 
 $task-width: 30vw
 $task-height: 7vh
+
+
+:root[theme=light]
+    --theme-bg-color: #{$theme-light-bg-color}
+    --theme-elements: #{$theme-light-elements}
+    --theme-second-font: #{$theme-light-second-font}
+    --theme-second-bg-color: #{$theme-dark-light-second-bg}
+    --theme-hover: #{$theme-light-hover}
+    --theme-active: #{$theme-light-active} 
+    --theme-font: #{$theme-light-font}
+
+:root[theme=dark]
+    --theme-bg-color: #{$theme-dark-bg-color}
+    --theme-elements: #{$theme-dark-elements}
+    --theme-second-font: #{$theme-dark-second-font}
+    --theme-second-bg-color: #{$theme-light-light-second-bg}
+    --theme-hover: #{$theme-dark-hover}
+    --theme-active: #{$theme-dark-active} 
+    --theme-font: #{$theme-dark-font}
 
 body
     font-family: 'Josefin Sans', sans-serif
     padding: 0 
     margin: 0
     min-height: 100%
-    background-color: $light-grey
-    color: $font-color
+    background-color: var(--theme-bg-color)
+    color: var(--theme-font)
 
 input
     font-family: 'Josefin Sans', sans-serif
-    color: $font-color
+    color: var(--theme-font)
 
 h1
     font-size: 2rem
-    color: $light-grey
+    color: var(--theme-elements)
     letter-spacing: 16px
 
 h2
