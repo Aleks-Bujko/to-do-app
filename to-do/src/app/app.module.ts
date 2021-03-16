@@ -6,18 +6,20 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TodosStoreService } from './todos-store.service';
+import { TodoInputComponent } from './todo-input/todo-input.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     TasksComponent,
+    TodoInputComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [TodosStoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

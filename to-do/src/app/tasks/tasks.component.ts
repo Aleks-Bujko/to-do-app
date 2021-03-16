@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Todos } from '../todo';
+
 import { TodosStoreService } from '../todos-store.service';
-import { Todo } from '../todo';
 
 @Component({
   selector: 'app-tasks',
@@ -8,34 +9,24 @@ import { Todo } from '../todo';
   styleUrls: ['./tasks.component.sass']
 })
 export class TasksComponent implements OnInit {
-
-  todos: Todo[];
+  @Input()todoList: Todos;
   
-  constructor(private todoStore: TodosStoreService) {
-    this.todos = [];
+  constructor(public todoStore: TodosStoreService) {
   }
 
   ngOnInit() {
-    this.getTodos();
   }
 
-  getTodos(): void {
-    this.todoStore.getTodos()
-        .subscribe(todos => this.todos = todos);
+  complete(todoId: number) {
+    this.todoStore.completeTodo(todoId);
   }
 
-  add(title: string): void {
-    title = title.trim();
-    if (!title) { return; }
-    this.todoStore.addTodo(({ title }) as Todo)
-      .subscribe(todo => {
-        this.todos.push(todo);
-      });
+  remove(todoId: number) {
+    this.todoStore.removeTodo(todoId);
   }
 
-  delete(todo: Todo): void {
-    this.todos = this.todos.filter(h => h !== todo);
-    this.todoStore.deleteTodo(todo).subscribe();
+  clearComplete() {
+    this.todoStore.removeCompleted();
   }
 
 }

@@ -1,20 +1,16 @@
-<div class="task-input">
-    <input type="checkbox" class="new-task-checkbox">
-    <input type="text" placeholder="Write your next to do!" #todoTitle (keyup.enter)="add(todoTitle.value); todoTitle.value=''" class="single-task-input" />
-</div>
 <div class="tasks-list-wrapper">
     <ul class="tasks-list">
-        <li class="single-task" *ngFor="let todo of todos">
-            <input type="checkbox" class="task-completed-checkbox"/>
-            <span class="task-name">{{todo.title}}</span>
-            <img src="../../assets/icon-cross.svg" height="16" width="16" class="task-delete-button" (click)="delete(todo)">
+        <li class="single-task" *ngFor="let todo of todoStore.todosFilter()">
+            <input type="checkbox" [checked]="todo.isCompleted" (change)="complete(todo.id)" class="task-completion-checkbox"/>
+            <span class="task-name" [ngClass]="{'completed': todo.isCompleted}">{{todo.title}}</span>
+            <img src="../../assets/icon-cross.svg" height="16" width="16" class="task-delete-button" (click)="remove(todo.id)">
         </li>
     </ul>
     <div class="tasks-actions-wrapper">
-        <span class="tasks-action">{{todos.length}} items left</span>
-        <span class="tasks-action">All</span>
-        <span class="tasks-action">Active</span>
-        <span class="tasks-action">Completed</span>
-        <span class="tasks-action">Clear Completed</span>
+        <span class="tasks-action">{{todoStore.remainingTodos()}} items left</span>
+        <span class="tasks-action" (click)="todoStore.filter='all'">All</span>
+        <span class="tasks-action" (click)="todoStore.filter='active'">Active</span>
+        <span class="tasks-action" (click)="todoStore.filter='completed'">Completed</span>
+        <span class="tasks-action" (click)="clearComplete()">Clear Completed</span>
     </div>
 </div>

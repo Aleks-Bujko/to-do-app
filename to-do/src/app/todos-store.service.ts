@@ -1,82 +1,65 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap} from 'rxjs/operators';
-import { Todo } from './todo';
+import { Todo, Todos} from './todo';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TodosStoreService {
 
-  private todosUrl = "api/todos";
+    todos: Todos = [];
+    todosFiltered: Todos = [];
+    filter: string = 'all';
+    public objObservable: any;
+    private objObserver: any;
 
-  httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
+    constructor() {
+        this.objObservable = new Observable((localObserver) => {
+            this.objObserver = localObserver; // Convert this.objObserver from any to an observer object
+            this.objObserver.next(this.todos); // Connect this.todos to observable object by observer
+        });
+    }
 
-  constructor(private http: HttpClient) { }
+    getTodos(): Observable<Todos> {
+        return this.objObservable;
+    }
 
-  getTodos(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(this.todosUrl)
-      .pipe(
-        catchError(this.handleError<Todo[]>('getTodos', []))
-      );
-  }
+    addTodo(newTodo: Todo) {
+        this.todos = [...this.todos, newTodo];
+        return this.objObserver.next(this.todos);
+    }
 
-  /** GET hero by id. Return `undefined` when id not found */
-  getTodoNo404<Data>(id: number): Observable<Todo> {
-    const url = `${this.todosUrl}/?id=${id}`;
-    return this.http.get<Todo[]>(url)
-      .pipe(
-        map(todos => todos[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-        }),
-        catchError(this.handleError<Todo>(`getTodo id=${id}`))
-      );
-  }
+    completeTodo(todoId: number) {
+        const itemIndex = this.todos.findIndex((item: Todo) => item.id === todoId);
+        this.todos = this.todos.map((item: Todo, index: number) => index === itemIndex ? {...item, isCompleted: !item.isCompleted} : item);
+        return this.objObserver.next(this.todos);
+    }
 
-  /** GET hero by id. Will 404 if id not found */
-  getTodo(id: number): Observable<Todo> {
-    const url = `${this.todosUrl}/${id}`;
-    return this.http.get<Todo>(url).pipe(
-      catchError(this.handleError<Todo>(`getTodo id=${id}`))
-    );
-  }
+    removeTodo(todoId: number) {
+        this.todos = this.todos.filter((item: Todo) => item.id !== todoId);
+        return this.objObserver.next(this.todos);
+    }
 
-  //////// Save methods //////////
+    todosFilter(): Todo[] {
+        if (this.filter === 'all') {
+            return this.todos;
+        } else if (this.filter === 'active') {
+            return this.todos.filter(todo => !todo.isCompleted);
+        } else if (this.filter === 'completed') {
+            return this.todos.filter(todo => todo.isCompleted);
+        }
 
-  /** POST: add a new hero to the server */
-  addTodo(todo: Todo): Observable<Todo> {
-    return this.http.post<Todo>(this.todosUrl, todo, this.httpOptions).pipe(
-      catchError(this.handleError<Todo>('addTodo'))
-    );
-  }
+        return this.todos;
+    }
 
-  /** DELETE: delete the hero from the server */
-  deleteTodo(todo: Todo | number): Observable<Todo> {
-    const id = typeof todo === 'number' ? todo : todo.id;
-    const url = `${this.todosUrl}/${id}`;
-    return this.http.delete<Todo>(url, this.httpOptions).pipe(
-      catchError(this.handleError<Todo>('deleteTodo'))
-    );
-  }
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+    remainingTodos() {
+        return this.todos.filter(todo => !todo.isCompleted).length;
+    }
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+    removeCompleted() {
+        this.todos = this.todos.filter((item: Todo) => !item.isCompleted);
+        console.log(this.todos);
+        return this.objObserver.next(this.todos);
+    }
 
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-  
 }
