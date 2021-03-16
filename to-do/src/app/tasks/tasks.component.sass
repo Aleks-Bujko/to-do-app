@@ -2,7 +2,7 @@
 
 .tasks-list-wrapper
     position: relative
-    top: -12vh
+    top: -10vh
 
 .tasks-list
     margin: 0
@@ -24,29 +24,29 @@ input[type=checkbox]
 
 .task-delete-button
     padding: 0 25px 0 0
-    transition: transform 0.6s ease-in-out
+    transition: transform 0.7s ease-in-out
     &:hover
         transform: scale(1.25)
     
 .tasks-actions-wrapper
-    width: $task-width
+    width: 90vw
     height: $task-height
     background-color: var(--theme-elements)
     display: flex
     align-items: center
     justify-content: space-around
-    padding: 0 35px
+    padding: 0 15px
     border-bottom: 1px var(--theme-second-bg-color)
     border-radius: 0 0 5px 5px
 
 .single-task
-    width: $task-width
+    width: 80vw
     height: $task-height
     display: flex
     align-items: center
     justify-content: space-between
     background-color: var(--theme-elements)
-    padding: 0 0 0 70px
+    padding: 0 0 0 60px
     border-bottom: 1px solid var(--theme-bg-color)
     &:first-of-type
         border-radius: 5px 5px 0 0
@@ -55,9 +55,28 @@ input[type=checkbox]
     text-decoration: line-through
 
 .tasks-action
-    font-size: 0.9rem
+    font-size: 0.8rem
     color: var(--theme-second-font)
     &:hover
         color: var(--theme-hover)
     &:active
         color: var(--theme-active)
+
+@media($desktop-width)
+
+    .tasks-list-wrapper 
+        top: -12vh
+
+    .tasks-actions-wrapper
+        width: $task-width
+        padding: 0 35px
+
+    .single-task
+        width: $task-width
+        padding: 0 0 0 70px
+
+    .tasks-action
+        font-size: 0.9rem
+
+    .single-task
+        width: $task-width

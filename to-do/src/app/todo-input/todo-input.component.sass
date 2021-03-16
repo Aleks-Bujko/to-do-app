@@ -8,17 +8,17 @@ input[type=checkbox]
     top: -18vh
 
 .single-task-input
-    width: $task-width
+    width: 80vw
     height: $task-height
     border: 1px var(--theme-second-font)
     background-color: var(--theme-elements)
     border-radius: 5px
     font-size: 1.25rem
-    padding: 0 0 0 70px
+    padding: 0
+    text-align: center
 
-.new-task-checkbox
-    position: absolute
-    top: 12px
-    left: 25px
-    height: 22px
-    width: 22px
+@media($desktop-width)
+    .single-task-input
+        width: $task-width
+        padding: 0 0 0 70px
+        text-align: start

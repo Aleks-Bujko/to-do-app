@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DarkModeService {
-  
+
   get theme(): any {
     return document.documentElement.getAttribute('theme');
   }
